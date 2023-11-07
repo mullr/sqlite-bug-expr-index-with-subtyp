@@ -28,11 +28,6 @@ static char* select_seeded_fruits =
 static char* packed_fruit_index =
   "create index packed_fruit_index on fruit(name, pack_fruit(name, seed_count))";
 
-
-/* static char *seediness_index = */
-/*   "create index fruit_seediness on fruit()" */
-
-
 static void packFruitFunc(sqlite3_context* context, int argc, sqlite3_value** argv) {
     assert(argc == 2);
     sqlite3_result_value(context, argv[0]);
@@ -131,12 +126,6 @@ int main(int argc, char **argv){
     fprintf(stderr, "SQL error: %s\n", zErrMsg);
     sqlite3_free(zErrMsg);
   }
-
-  /* rc = sqlite3_exec(db, "analyze", NULL , 0, &zErrMsg); */
-  /* if( rc!=SQLITE_OK ){ */
-  /*   fprintf(stderr, "SQL error: %s\n", zErrMsg); */
-  /*   sqlite3_free(zErrMsg); */
-  /* } */
 
   printf("**** Query results with index: ****\n");
   rc = sqlite3_exec(db, select_seeded_fruits, callback, 0, &zErrMsg);
